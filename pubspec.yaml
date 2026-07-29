@@ -1,0 +1,41 @@
+name: focusmate
+description: "Personal productivity assistant for students and professionals."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.2
+
+  # Firebase
+  firebase_core: ^3.4.0
+  firebase_auth: ^5.2.0
+  cloud_firestore: ^5.4.0
+
+  # Notifications (Android only — skipped on web automatically)
+  flutter_local_notifications: ^17.2.2
+  timezone: ^0.9.4
+
+  # UI / Charts / Calendar
+  fl_chart: ^0.68.0
+  table_calendar: ^3.1.2
+
+  # Utilities
+  intl: ^0.19.0
+  shared_preferences: ^2.3.2
+  http: ^1.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
