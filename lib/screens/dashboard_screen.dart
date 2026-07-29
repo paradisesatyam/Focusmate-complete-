@@ -5,10 +5,12 @@ import '../theme/app_theme.dart';
 import '../widgets/profile_header.dart';
 import '../widgets/section_card.dart';
 import 'ai_chat_screen.dart';
+import 'alarm_screen.dart';
 import 'calendar_screen.dart';
 import 'diary_screen.dart';
 import 'expense_screen.dart';
 import 'focus_timer_screen.dart';
+import 'habit_screen.dart';
 import 'progress_screen.dart';
 import 'todo_screen.dart';
 
@@ -20,19 +22,22 @@ class DashboardScreen extends StatelessWidget {
     final name = FirebaseAuth.instance.currentUser?.displayName ?? 'There';
 
     final sections = [
-      {'title': 'Focus Timer',      'subtitle': 'Countdown timer with session tracking', 'icon': Icons.timer_outlined,           'color': AppColors.primary,     'screen': const FocusTimerScreen()},
-      {'title': 'To-Do Planner',   'subtitle': 'Tasks with deadline notifications',      'icon': Icons.checklist_rtl,            'color': AppColors.success,     'screen': const TodoScreen()},
-      {'title': 'Calendar',        'subtitle': 'Plan and view your schedule',             'icon': Icons.calendar_month_outlined,  'color': AppColors.accent,      'screen': const CalendarScreen()},
-      {'title': 'Diary',           'subtitle': 'Journal with mood tracking',              'icon': Icons.book_outlined,            'color': AppColors.danger,      'screen': const DiaryScreen()},
-      {'title': 'AI Chat',         'subtitle': 'Powered by Google Gemini',               'icon': Icons.smart_toy_outlined,       'color': AppColors.primaryDark, 'screen': const AiChatScreen()},
-      {'title': 'Progress',        'subtitle': 'Focus and task completion charts',        'icon': Icons.bar_chart_rounded,        'color': AppColors.success,     'screen': const ProgressScreen()},
-      {'title': 'Expense Analytics','subtitle': 'Track spending with pie & bar charts',  'icon': Icons.account_balance_wallet_outlined, 'color': Color(0xFF9B59B6), 'screen': const ExpenseScreen()},
+      {'title': 'Focus Timer',       'subtitle': 'Countdown sessions with progress tracking',  'icon': Icons.timer_outlined,                  'color': AppColors.primary,            'screen': const FocusTimerScreen()},
+      {'title': 'To-Do Planner',     'subtitle': 'Tasks with deadline notifications',          'icon': Icons.checklist_rtl,                   'color': AppColors.success,            'screen': const TodoScreen()},
+      {'title': 'Daily Habits',      'subtitle': 'Build routines with daily reminders',        'icon': Icons.repeat_rounded,                  'color': Color(0xFF1ABC9C),            'screen': const HabitScreen()},
+      {'title': 'Alarm',             'subtitle': 'Set alarms with repeat options',             'icon': Icons.alarm_rounded,                   'color': Color(0xFFE67E22),            'screen': const AlarmScreen()},
+      {'title': 'Calendar',          'subtitle': 'Plan and view your schedule',                'icon': Icons.calendar_month_outlined,         'color': AppColors.accent,             'screen': const CalendarScreen()},
+      {'title': 'Diary',             'subtitle': 'Journal with mood tracking',                 'icon': Icons.book_outlined,                   'color': AppColors.danger,             'screen': const DiaryScreen()},
+      {'title': 'AI Chat',           'subtitle': 'Powered by Google Gemini',                  'icon': Icons.smart_toy_outlined,              'color': AppColors.primaryDark,        'screen': const AiChatScreen()},
+      {'title': 'Progress',          'subtitle': 'Focus and task completion charts',           'icon': Icons.bar_chart_rounded,               'color': AppColors.success,            'screen': const ProgressScreen()},
+      {'title': 'Expense Analytics', 'subtitle': 'Track spending with charts',                 'icon': Icons.account_balance_wallet_outlined,  'color': Color(0xFF9B59B6),           'screen': const ExpenseScreen()},
     ];
 
     return Scaffold(
       backgroundColor: AppColors.background,
       floatingActionButton: FloatingActionButton.small(
-        backgroundColor: Colors.white, foregroundColor: AppColors.textSecondary, elevation: 2, tooltip: 'Log out',
+        backgroundColor: Colors.white, foregroundColor: AppColors.textSecondary,
+        elevation: 2, tooltip: 'Log out',
         onPressed: () => _logout(context),
         child: const Icon(Icons.logout_rounded, size: 20),
       ),
@@ -46,7 +51,8 @@ class DashboardScreen extends StatelessWidget {
           GridView.builder(
             shrinkWrap: true, physics: const NeverScrollableScrollPhysics(),
             itemCount: sections.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 14, mainAxisSpacing: 14, childAspectRatio: 0.95),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, crossAxisSpacing: 14, mainAxisSpacing: 14, childAspectRatio: 0.95),
             itemBuilder: (_, i) => SectionCard(
               title: sections[i]['title'] as String,
               subtitle: sections[i]['subtitle'] as String,
@@ -61,12 +67,20 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  void _logout(BuildContext ctx) => showDialog(context: ctx, builder: (c) => AlertDialog(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    title: const Text('Log out?'), content: const Text('You will be returned to the login screen.'),
-    actions: [
-      TextButton(onPressed: () => Navigator.pop(c), child: const Text('Cancel')),
-      ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: AppColors.danger, foregroundColor: Colors.white), onPressed: () { Navigator.pop(c); AuthService().signOut(); }, child: const Text('Log Out')),
-    ],
-  ));
+  void _logout(BuildContext ctx) => showDialog(
+    context: ctx,
+    builder: (c) => AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      title: const Text('Log out?'),
+      content: const Text('You will be returned to the login screen.'),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(c), child: const Text('Cancel')),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: AppColors.danger, foregroundColor: Colors.white),
+          onPressed: () { Navigator.pop(c); AuthService().signOut(); },
+          child: const Text('Log Out'),
+        ),
+      ],
+    ),
+  );
 }
