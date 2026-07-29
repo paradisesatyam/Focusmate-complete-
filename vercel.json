@@ -1,5 +1,4 @@
 {
-  "buildCommand": "git clone https://github.com/flutter/flutter.git -b stable --depth 1 /tmp/flutter && /tmp/flutter/bin/flutter pub get && /tmp/flutter/bin/flutter build web --release --dart-define=GEMINI_KEY=$GEMINI_KEY",
-  "outputDirectory": "build/web",
-  "framework": null
+  "framework": null,
+  "outputDirectory": "build/web"
 }
