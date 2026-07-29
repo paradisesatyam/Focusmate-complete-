@@ -9,7 +9,8 @@
 *.iws
 .idea/
 .DS_Store
-
+.env.local
+build/
 # Firebase — never commit these
 google-services.json
 GoogleService-Info.plist
