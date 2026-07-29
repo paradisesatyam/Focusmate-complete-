@@ -16,11 +16,14 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0'
+          flutter-version: '3.27.0'
           channel: 'stable'
 
       - name: Install dependencies
         run: flutter pub get
+
+      - name: Create firebase_options.dart
+        run: echo "${{ secrets.FIREBASE_OPTIONS }}" > lib/firebase_options.dart
 
       - name: Build web
         run: flutter build web --release --dart-define=GEMINI_KEY=${{ secrets.GEMINI_KEY }}

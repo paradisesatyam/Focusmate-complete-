@@ -32,10 +32,10 @@ class AppTheme {
       elevation: 0,
       foregroundColor: AppColors.textPrimary,
     ),
-    cardTheme: CardThemeData(
+    cardTheme: Const CardTheme(
       color: AppColors.card,
       elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
     ),
     textTheme: const TextTheme(
       headlineSmall: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
