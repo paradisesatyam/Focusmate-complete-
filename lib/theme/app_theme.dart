@@ -32,7 +32,7 @@ class AppTheme {
       elevation: 0,
       foregroundColor: AppColors.textPrimary,
     ),
-    cardTheme: Const CardTheme(
+    cardTheme: const CardThemeData(
       color: AppColors.card,
       elevation: 0,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
